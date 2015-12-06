@@ -19,7 +19,7 @@ greetsFileContents p start end = firstOut == greet contents
         contents = "contents of " ++ p
         greet = ("Hello, " ++)
 
--- second thing output is elapsed time in s
+-- second thing output is elapsed time in ms
 outputsElapsedTime :: String -> DiffTime -> DiffTime -> Bool
 outputsElapsedTime p start end = secondOut == elapsed
   where secondOut = result !! 1
