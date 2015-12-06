@@ -2,5 +2,9 @@ module Hello
     ( hello
     ) where
 
-hello :: IO ()
-hello = putStrLn "someFunc"
+import Op
+
+hello :: FilePath -> Op ()
+hello path = do
+  c <- readFile' path
+  putStrLn' c
