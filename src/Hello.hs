@@ -6,5 +6,8 @@ import Op
 
 hello :: FilePath -> Op ()
 hello path = do
+  begin <- getPOSIXTime'
   c <- readFile' path
-  putStrLn' $ "hello, " ++ c
+  putStrLn' $ "Hello, " ++ c
+  end <- getPOSIXTime'
+  putStrLn' $ show $ end - begin

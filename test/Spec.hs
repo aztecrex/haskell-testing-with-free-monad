@@ -4,15 +4,25 @@ import Control.Monad.Free
 import Test.QuickCheck
 
 main :: IO ()
-main = quickCheck greetsFileContents
+main = do
+  print $ runPure $ hello "hi"
+  quickCheck greetsFileContents
+  quickCheck outputsElapsedTime
 
--- hello is equivalent to copying a string from one place to another
--- (not really but want to checkpoint and refine this)
+-- first thing output is the file contents modified with greeting
 greetsFileContents :: String -> Bool
-greetsFileContents p = runPure (hello p) == ["hello, contents of " ++ p]
+greetsFileContents p = firstOut == greet contents
+  where firstOut = runPure (hello p) !! 0
+        contents = "contents of " ++ p
+        greet = ("Hello, " ++)
 
+outputsElapsedTime :: String -> Bool
+outputsElapsedTime p = secondOut == elapsed
+  where secondOut = runPure (hello p) !! 1
+        elapsed = "0s"
 
 runPure :: Op r -> [String]
 runPure (Pure r) = []
 runPure (Free (PutStrLn s t)) = s:runPure t
 runPure (Free (ReadFile p f)) = runPure (f $ "contents of " ++ p)
+runPure (Free (GetPOSIXTime f)) = runPure (f 100000000000)
