@@ -14,14 +14,16 @@ main = do
 -- first thing output is the file contents modified with greeting
 greetsFileContents :: String -> DiffTime -> DiffTime -> Bool
 greetsFileContents p start end = firstOut == greet contents
-  where firstOut = runPure hello p [start,end] !! 0
+  where firstOut = result !! 0
+        result = runPure hello p [start,end]
         contents = "contents of " ++ p
         greet = ("Hello, " ++)
 
 -- second thing output is elapsed time in s
 outputsElapsedTime :: String -> DiffTime -> DiffTime -> Bool
 outputsElapsedTime p start end = secondOut == elapsed
-  where secondOut = runPure hello p [start,end] !! 1
+  where secondOut = result !! 1
+        result = runPure hello p [start,end]
         elapsed = ( show (truncate ( 1000 * ( end - start ) ) ) ) ++ "ms"
 
 runPure :: Op r -> String -> [DiffTime] -> [String]
