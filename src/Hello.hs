@@ -7,4 +7,4 @@ import Op
 hello :: FilePath -> Op ()
 hello path = do
   c <- readFile' path
-  putStrLn' c
+  putStrLn' $ "hello, " ++ c
