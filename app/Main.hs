@@ -1,6 +1,7 @@
 module Main where
 
-import Lib
+import Hello
+import OpIO
 
 main :: IO ()
-main = someFunc
+main = run hello

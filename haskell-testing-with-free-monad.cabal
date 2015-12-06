@@ -15,11 +15,15 @@ cabal-version:       >=1.10
 
 library
   hs-source-dirs:      src
-  exposed-modules:     Lib
+  exposed-modules:     Hello
+                     , Op
+                     , OpIO
   build-depends:       base >= 4.7 && < 5
+                     , free
+                     , time
   default-language:    Haskell2010
 
-executable haskell-testing-with-free-monad-exe
+executable hello
   hs-source-dirs:      app
   main-is:             Main.hs
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
@@ -33,6 +37,11 @@ test-suite haskell-testing-with-free-monad-test
   main-is:             Spec.hs
   build-depends:       base
                      , haskell-testing-with-free-monad
+                     , free
+                     , time
+                     , hspec
+                     , QuickCheck
+                     , quickcheck-instances
   ghc-options:         -threaded -rtsopts -with-rtsopts=-N
   default-language:    Haskell2010
 
