@@ -6,8 +6,8 @@ import Op
 
 hello :: FilePath -> Op ()
 hello path = do
-  begin <- getPOSIXTime'
+  begin <- getTimestamp'
   c <- readFile' path
   putStrLn' $ "Hello, " ++ c
-  end <- getPOSIXTime'
-  putStrLn' $ show $ end - begin
+  end <- getTimestamp'
+  putStrLn' $ ( show (truncate ( 1000 * ( end - begin ) ) ) ) ++ "ms"

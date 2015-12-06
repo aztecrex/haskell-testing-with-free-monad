@@ -1,23 +1,23 @@
 module Op (
     Op
-  , OpF (PutStrLn, ReadFile, GetPOSIXTime)
+  , OpF (PutStrLn, ReadFile, GetTimestamp)
   , putStrLn'
   , readFile'
-  , getPOSIXTime'
+  , getTimestamp'
 ) where
 
 import Control.Monad.Free
-import Data.Time.Clock.POSIX
+import Data.Time.Clock
 
 data OpF x
     = PutStrLn String x
     | ReadFile FilePath (String -> x)
-    | GetPOSIXTime (POSIXTime -> x)
+    | GetTimestamp (DiffTime -> x)
 
 instance Functor OpF where
   fmap f (PutStrLn s x) = PutStrLn s (f x)
   fmap f (ReadFile p k) = ReadFile p (f . k)
-  fmap f (GetPOSIXTime k) = GetPOSIXTime (f . k)
+  fmap f (GetTimestamp k) = GetTimestamp (f . k)
 
 type Op = Free OpF
 
@@ -27,5 +27,5 @@ putStrLn' s = liftF $ PutStrLn s ()
 readFile' :: FilePath -> Op String
 readFile' p = liftF $ ReadFile p id
 
-getPOSIXTime' :: Op POSIXTime
-getPOSIXTime' = liftF $ GetPOSIXTime id
+getTimestamp' :: Op DiffTime
+getTimestamp' = liftF $ GetTimestamp id
