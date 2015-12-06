@@ -4,8 +4,9 @@ module Hello
 
 import Op
 
-hello :: FilePath -> Op ()
-hello path = do
+hello ::  Op ()
+hello = do
+  path <- fmap head getArgs'
   begin <- getTimestamp'
   c <- readFile' path
   putStrLn' $ "Hello, " ++ c

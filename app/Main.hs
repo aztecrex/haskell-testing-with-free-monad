@@ -4,4 +4,4 @@ import Hello
 import OpIO
 
 main :: IO ()
-main = run $ hello "/etc/group"
+main = run hello
