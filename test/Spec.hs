@@ -7,9 +7,10 @@ import Test.QuickCheck.Instances
 
 main :: IO ()
 main = do
-  -- print $ runPure hello "hi" [10000000,1000000003]
+  putStrLn ""
   quickCheck greetsFileContents
   quickCheck outputsElapsedTime
+  putStrLn ""
 
 -- first thing output is the file contents modified with greeting
 greetsFileContents :: String -> DiffTime -> DiffTime -> Bool
