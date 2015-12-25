@@ -6,7 +6,7 @@ import Op
 
 hello ::  Op ()
 hello = do
-  path <- fmap head getArgs'
+  (path : _) <- getArgs'
   begin <- getTimestamp'
   c <- readFile' path
   putStrLn' $ "Hello, " ++ c
